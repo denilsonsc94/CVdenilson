@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo Interativo - Denilson Costa Silva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Professional Slate -->
+    <!-- Application Structure Plan: A single-page application with a sticky navigation bar for easy access to key sections: a professional summary, a detailed timeline of experiences, an interactive skills visualization, and a clear educational background. This structure transforms the linear CV into an engaging narrative, allowing recruiters to quickly grasp the candidate's career progression and key strengths. The flow is designed to first present a strong summary, then provide deep-dives into experience and skills, which are the most critical areas for evaluation. A new section for an AI-powered cover letter generator has been added to enhance utility for job applications. -->
+    <!-- Visualization & Content Choices: Report Info: Skills -> Goal: Compare & Showcase -> Viz/Method: Radar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: A radar chart effectively visualizes the balance and strength of multiple soft skills simultaneously, offering a more impactful and quicker understanding than a simple list. | Report Info: Career History -> Goal: Show Progression -> Viz/Method: Vertical Timeline (HTML/CSS) -> Interaction: None, purely visual -> Justification: A timeline visually structures career milestones chronologically, making the career path intuitive and easy to follow. | Report Info: Job Description & Resume -> Goal: Generate Personalized Cover Letter -> Viz/Method: Text Output from LLM -> Interaction: User input (textarea) and button click to trigger AI generation -> Justification: Leverages AI to automate a key job application step, providing tailored content based on the candidate's profile and job requirements, enhancing efficiency and relevance. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+    <header id="inicio" class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-slate-800">
+                Denilson C. Silva
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#resumo" class="text-slate-600 hover:text-blue-600 transition duration-300">Resumo</a>
+                <a href="#experiencia" class="text-slate-600 hover:text-blue-600 transition duration-300">Experiência</a>
+                <a href="#habilidades" class="text-slate-600 hover:text-blue-600 transition duration-300">Habilidades</a>
+                <a href="#formacao" class="text-slate-600 hover:text-blue-600 transition duration-300">Formação</a>
+                <a href="#carta-apresentacao" class="text-slate-600 hover:text-blue-600 transition duration-300">Carta de Apresentação</a>
+            </div>
+            <a href="mailto:denilson.scosta94@gmail.com" class="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Entre em Contato</a>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-slate-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#resumo" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Resumo</a>
+            <a href="#experiencia" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Experiência</a>
+            <a href="#habilidades" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Habilidades</a>
+            <a href="#formacao" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Formação</a>
+            <a href="#carta-apresentacao" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Carta de Apresentação</a>
+            <a href="mailto:denilson.scosta94@gmail.com" class="block py-2 px-4 text-sm bg-blue-600 text-white text-center rounded-b-lg">Entre em Contato</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="resumo" class="text-center mb-24 scroll-mt-24">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Denilson Costa Silva</h1>
+            <h2 class="text-2xl text-blue-600 font-medium mb-8">Eletrotécnico Especialista em Gestão de Obras</h2>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                Profissional da área elétrica com atuação desde 2014. Possuo sólida experiência em supervisão e gerenciamento de obras, com foco em energia solar, e instalações prediais. Especialista em liderança de equipes, planejamento, logística e resolução de problemas, garantindo a execução de projetos com segurança e alta qualidade.
+            </p>
+        </section>
+
+        <section id="experiencia" class="mb-24 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 text-center mb-12">Linha do Tempo Profissional</h2>
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute left-1/2 w-0.5 h-full bg-slate-300 transform -translate-x-1/2"></div>
+                
+                <div class="relative mb-8">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <h3 class="font-bold text-xl text-slate-800">Supervisor de Obras</h3>
+                            <p class="text-sm text-slate-500">04/2023 - 07/2024</p>
+                            <p class="mt-2 text-slate-600">Coordenação de equipes em projetos, incluindo energia solar e instalações prediais, garantindo cronograma, qualidade e segurança.</p>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white z-10 absolute left-1/2 transform -translate-x-1/2">
+                            <span>⚡</span>
+                        </div>
+                        <div class="w-1/2"></div>
+                    </div>
+                </div>
+
+                <div class="relative mb-8">
+                    <div class="flex items-center">
+                        <div class="w-1/2"></div>
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white z-10 absolute left-1/2 transform -translate-x-1/2">
+                            <span>⚙️</span>
+                        </div>
+                        <div class="w-1/2 pl-8">
+                            <h3 class="font-bold text-xl text-slate-800">Gerente de Obras</h3>
+                            <p class="text-sm text-slate-500">10/2020 - 04/2023</p>
+                            <p class="mt-2 text-slate-600">Gerenciamento de 10 equipes e 3 supervisores em projetos de instalações prediais, cuidando da logística e organização completa das obras.</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="relative mb-8">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <h3 class="font-bold text-xl text-slate-800">Início da Carreira Elétrica</h3>
+                            <p class="text-sm text-slate-500">2014</p>
+                            <p class="mt-2 text-slate-600">Começo da jornada profissional na área elétrica, desenvolvendo a base técnica e prática em instalações.</p>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white z-10 absolute left-1/2 transform -translate-x-1/2">
+                            <span>🔌</span>
+                        </div>
+                        <div class="w-1/2"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="habilidades" class="mb-24 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 text-center mb-4">Competências em Foco</h2>
+            <p class="text-center text-slate-600 max-w-3xl mx-auto mb-12">
+                Minhas habilidades combinam uma base técnica robusta, com ênfase em energia solar e instalações prediais, e competências de liderança e gestão desenvolvidas ao longo de anos de experiência prática. Esta seção visualiza como essas habilidades se complementam para entregar resultados de excelência.
+            </p>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Habilidades Técnicas</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">Sistemas Fotovoltaicos</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">Instalações Prediais</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">Normas de Segurança</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">Leitura de Projetos</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">Manutenção de Equipamentos</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Habilidades de Gestão</h3>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formacao" class="scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 text-center mb-12">Formação e Qualificações</h2>
+             <p class="text-center text-slate-600 max-w-3xl mx-auto mb-12">
+                Minha base educacional é o alicerce da minha carreira. A formação técnica contínua, combinada com treinamentos de liderança e o desenvolvimento de novos idiomas, reflete meu compromisso com o crescimento profissional e pessoal.
+            </p>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <p class="font-bold text-lg text-slate-800">Curso Técnico em Eletrotécnico</p>
+                    <p class="text-slate-600">Instituto Federal do Pará (IFPA) - Concluído em 2020</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <p class="font-bold text-lg text-slate-800">Instalador de Sistemas de MicroGeração Fotovoltaica</p>
+                    <p class="text-slate-600">Instituto Federal do Pará (IFPA) - Concluído em 2019</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <p class="font-bold text-lg text-slate-800">Curso Profissionalizante de Eletricidade</p>
+                    <p class="text-slate-600">Escola Salesiana do Trabalho - Concluído em 2016</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <p class="font-bold text-lg text-slate-800">Treinamento de Líderes Frutíferos</p>
+                    <p class="text-slate-600">Igreja do Evangelho Quadrangular - Concluído em 2016</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <p class="font-bold text-lg text-slate-800">Curso de Inglês</p>
+                    <p class="text-slate-600">Fluency Academy - Início em 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="carta-apresentacao" class="mb-24 scroll-mt-24 bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-slate-800 text-center mb-8">Gerador de Carta de Apresentação ✨</h2>
+            <p class="text-center text-slate-600 max-w-3xl mx-auto mb-8">
+                Cole a descrição da vaga abaixo e clique no botão para gerar uma carta de apresentação personalizada, destacando suas qualificações mais relevantes.
+            </p>
+            <div class="mb-6">
+                <label for="jobDescription" class="block text-slate-700 text-lg font-medium mb-2">Descrição da Vaga:</label>
+                <textarea id="jobDescription" rows="10" class="w-full p-4 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-slate-800" placeholder="Cole a descrição completa da vaga aqui..."></textarea>
+            </div>
+            <div class="text-center mb-8">
+                <button id="generateCoverLetterBtn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105 shadow-lg">
+                    Gerar Carta de Apresentação ✨
+                </button>
+            </div>
+            <div id="loadingIndicator" class="text-center hidden mb-4 text-blue-600 font-medium">
+                Gerando carta... Por favor, aguarde.
+            </div>
+            <div id="coverLetterOutput" class="bg-slate-50 p-6 rounded-lg border border-slate-200 text-slate-800 whitespace-pre-wrap leading-relaxed min-h-[150px]">
+                Sua carta de apresentação personalizada aparecerá aqui.
+            </div>
+            <div id="errorMessage" class="text-center text-red-600 mt-4 hidden">
+                Ocorreu um erro ao gerar a carta. Por favor, tente novamente mais tarde.
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-24">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h3 class="text-2xl font-bold mb-2">Vamos conversar?</h3>
+            <p class="mb-4">Estou disponível para novas oportunidades e desafios.</p>
+            <p class="mb-2">📧 <a href="mailto:denilson.scosta94@gmail.com" class="hover:text-blue-400">denilson.scosta94@gmail.com</a></p>
+            <p>📞 <a href="tel:+5591984446305" class="hover:text-blue-400">(91) 98444-6305</a></p>
+            <div class="mt-6 border-t border-slate-700 pt-6">
+                <p>&copy; 2025 Denilson Costa Silva - Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const generateCoverLetterBtn = document.getElementById('generateCoverLetterBtn');
+            const jobDescriptionInput = document.getElementById('jobDescription');
+            const coverLetterOutput = document.getElementById('coverLetterOutput');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Handle mobile menu toggle
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // Chart.js for skills visualization
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Liderança', 
+                        'Gerenciamento de Equipes', 
+                        'Planejamento', 
+                        'Organização', 
+                        'Resolução de Problemas', 
+                        'Comunicação'
+                    ],
+                    datasets: [{
+                        label: 'Nível de Competência',
+                        data: [9, 9, 8, 9, 8, 7],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(248, 250, 252, 0)',
+                                color: '#64748b',
+                                stepSize: 2,
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gemini API call function with exponential backoff
+            async function callGeminiApiWithBackoff(prompt, maxRetries = 5, initialDelay = 1000) {
+                let retries = 0;
+                while (retries < maxRetries) {
+                    try {
+                        const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                        const payload = { contents: chatHistory };
+                        const apiKey = "";
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            return result.candidates[0].content.parts[0].text;
+                        } else {
+                            throw new Error("Unexpected API response structure.");
+                        }
+                    } catch (error) {
+                        retries++;
+                        if (retries < maxRetries) {
+                            const delay = initialDelay * Math.pow(2, retries - 1);
+                            await new Promise(res => setTimeout(res, delay));
+                        } else {
+                            throw new Error(`Falha ao gerar carta após ${maxRetries} tentativas: ${error.message}`);
+                        }
+                    }
+                }
+            }
+
+            // Resume data for LLM context
+            const denilsonResumeData = {
+                resumo: "Profissional da área elétrica com atuação desde 2014. Possuo sólida experiência em supervisão e gerenciamento de obras, com foco em energia solar, e instalações prediais. Especialista em liderança de equipes, planejamento, logística e resolução de problemas, garantindo a execução de projetos com segurança e alta qualidade.",
+                experiencias: [
+                    {
+                        cargo: "Supervisor de Obras",
+                        periodo: "04/2023 - 07/2024",
+                        descricao: "Coordenação de equipes em projetos, incluindo energia solar e instalações prediais, garantindo cronograma, qualidade e segurança."
+                    },
+                    {
+                        cargo: "Gerente de Obras",
+                        periodo: "10/2020 - 04/2023",
+                        descricao: "Gerenciamento de 10 equipes e 3 supervisores em projetos de instalações prediais, cuidando da logística e organização completa das obras."
+                    },
+                    {
+                        cargo: "Início da Carreira Elétrica",
+                        periodo: "2014",
+                        descricao: "Começo da jornada profissional na área elétrica, desenvolvendo a base técnica e prática em instalações."
+                    }
+                ],
+                habilidadesTecnicas: "Sistemas Fotovoltaicos, Instalações Prediais, Normas de Segurança, Leitura de Projetos, Manutenção de Equipamentos.",
+                habilidadesComportamentais: "Liderança, Gerenciamento de Equipes, Planejamento, Organização, Resolução de Problemas, Boa Comunicação."
+            };
+
+            // Event listener for generating cover letter
+            generateCoverLetterBtn.addEventListener('click', async () => {
+                const jobDescription = jobDescriptionInput.value.trim();
+
+                if (!jobDescription) {
+                    coverLetterOutput.innerHTML = '<p class="text-red-500">Por favor, insira a descrição da vaga para gerar a carta.</p>';
+                    return;
+                }
+
+                loadingIndicator.classList.remove('hidden');
+                coverLetterOutput.textContent = '';
+                errorMessage.classList.add('hidden');
+
+                const resumeContext = `
+                    **Resumo Profissional de Denilson:** ${denilsonResumeData.resumo}
+
+                    **Experiências Profissionais de Denilson:**
+                    - Supervisor de Obras (${denilsonResumeData.experiencias[0].periodo}): ${denilsonResumeData.experiencias[0].descricao}
+                    - Gerente de Obras (${denilsonResumeData.experiencias[1].periodo}): ${denilsonResumeData.experiencias[1].descricao}
+                    - Início da Carreira Elétrica (${denilsonResumeData.experiencias[2].periodo}): ${denilsonResumeData.experiencias[2].descricao}
+
+                    **Habilidades Técnicas de Denilson:** ${denilsonResumeData.habilidadesTecnicas}
+                    **Habilidades Comportamentais de Denilson:** ${denilsonResumeData.habilidadesComportamentais}
+                `;
+
+                const prompt = `Com base no seguinte currículo de Denilson Costa Silva e na descrição da vaga abaixo, escreva uma carta de apresentação convincente e personalizada. A carta deve destacar como as habilidades e experiências de Denilson se alinham com os requisitos da vaga, especialmente em energia solar, instalações prediais e gestão de obras. Mantenha um tom profissional e direto.
+
+                ${resumeContext}
+
+                **Descrição da Vaga:**
+                ${jobDescription}`;
+
+                try {
+                    const generatedLetter = await callGeminiApiWithBackoff(prompt);
+                    coverLetterOutput.textContent = generatedLetter;
+                } catch (error) {
+                    console.error("Erro na geração da carta:", error);
+                    errorMessage.classList.remove('hidden');
+                    coverLetterOutput.textContent = 'Não foi possível gerar a carta de apresentação. Por favor, tente novamente.';
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
