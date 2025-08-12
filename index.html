@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Chosen Palette: Professional Slate -->
-    <!-- Application Structure Plan: A single-page application with a sticky navigation bar for easy access to key sections: a professional summary, a detailed timeline of experiences, an interactive skills visualization, and a clear educational background. This structure transforms the linear CV into an engaging narrative, allowing recruiters to quickly grasp the candidate's career progression and key strengths. The flow is designed to first present a strong summary, then provide deep-dives into experience and skills, which are the most critical areas for evaluation. A new section for an AI-powered cover letter generator has been added to enhance utility for job applications. -->
-    <!-- Visualization & Content Choices: Report Info: Skills -> Goal: Compare & Showcase -> Viz/Method: Radar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: A radar chart effectively visualizes the balance and strength of multiple soft skills simultaneously, offering a more impactful and quicker understanding than a simple list. | Report Info: Career History -> Goal: Show Progression -> Viz/Method: Vertical Timeline (HTML/CSS) -> Interaction: None, purely visual -> Justification: A timeline visually structures career milestones chronologically, making the career path intuitive and easy to follow. | Report Info: Job Description & Resume -> Goal: Generate Personalized Cover Letter -> Viz/Method: Text Output from LLM -> Interaction: User input (textarea) and button click to trigger AI generation -> Justification: Leverages AI to automate a key job application step, providing tailored content based on the candidate's profile and job requirements, enhancing efficiency and relevance. -->
+    <!-- Application Structure Plan: A single-page application with a sticky navigation bar for easy access to key sections: a professional summary, a detailed timeline of experiences, an interactive skills visualization, and a clear educational background. This structure transforms the linear CV into an engaging narrative, allowing recruiters to quickly grasp the candidate's career progression and key strengths. The flow is designed to first present a strong summary, then provide deep-dives into experience and skills, which are the most critical areas for evaluation. -->
+    <!-- Visualization & Content Choices: Report Info: Skills -> Goal: Compare & Showcase -> Viz/Method: Radar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: A radar chart effectively visualizes the balance and strength of multiple soft skills simultaneously, offering a more impactful and quicker understanding than a simple list. | Report Info: Career History -> Goal: Show Progression -> Viz/Method: Vertical Timeline (HTML/CSS) -> Interaction: None, purely visual -> Justification: A timeline visually structures career milestones chronologically, making the career path intuitive and easy to follow. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <style>
@@ -47,7 +47,6 @@
                 <a href="#experiencia" class="text-slate-600 hover:text-blue-600 transition duration-300">Experiência</a>
                 <a href="#habilidades" class="text-slate-600 hover:text-blue-600 transition duration-300">Habilidades</a>
                 <a href="#formacao" class="text-slate-600 hover:text-blue-600 transition duration-300">Formação</a>
-                <a href="#carta-apresentacao" class="text-slate-600 hover:text-blue-600 transition duration-300">Carta de Apresentação</a>
             </div>
             <a href="mailto:denilson.scosta94@gmail.com" class="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Entre em Contato</a>
             <div class="md:hidden">
@@ -61,7 +60,6 @@
             <a href="#experiencia" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Experiência</a>
             <a href="#habilidades" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Habilidades</a>
             <a href="#formacao" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Formação</a>
-            <a href="#carta-apresentacao" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-100">Carta de Apresentação</a>
             <a href="mailto:denilson.scosta94@gmail.com" class="block py-2 px-4 text-sm bg-blue-600 text-white text-center rounded-b-lg">Entre em Contato</a>
         </div>
     </header>
@@ -180,31 +178,6 @@
             </div>
         </section>
 
-        <section id="carta-apresentacao" class="mb-24 scroll-mt-24 bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-3xl font-bold text-slate-800 text-center mb-8">Gerador de Carta de Apresentação ✨</h2>
-            <p class="text-center text-slate-600 max-w-3xl mx-auto mb-8">
-                Cole a descrição da vaga abaixo e clique no botão para gerar uma carta de apresentação personalizada, destacando suas qualificações mais relevantes.
-            </p>
-            <div class="mb-6">
-                <label for="jobDescription" class="block text-slate-700 text-lg font-medium mb-2">Descrição da Vaga:</label>
-                <textarea id="jobDescription" rows="10" class="w-full p-4 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-slate-800" placeholder="Cole a descrição completa da vaga aqui..."></textarea>
-            </div>
-            <div class="text-center mb-8">
-                <button id="generateCoverLetterBtn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105 shadow-lg">
-                    Gerar Carta de Apresentação ✨
-                </button>
-            </div>
-            <div id="loadingIndicator" class="text-center hidden mb-4 text-blue-600 font-medium">
-                Gerando carta... Por favor, aguarde.
-            </div>
-            <div id="coverLetterOutput" class="bg-slate-50 p-6 rounded-lg border border-slate-200 text-slate-800 whitespace-pre-wrap leading-relaxed min-h-[150px]">
-                Sua carta de apresentação personalizada aparecerá aqui.
-            </div>
-            <div id="errorMessage" class="text-center text-red-600 mt-4 hidden">
-                Ocorreu um erro ao gerar a carta. Por favor, tente novamente mais tarde.
-            </div>
-        </section>
-
     </main>
 
     <footer class="bg-slate-800 text-white mt-24">
@@ -223,11 +196,6 @@
         document.addEventListener('DOMContentLoaded', function () {
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            const generateCoverLetterBtn = document.getElementById('generateCoverLetterBtn');
-            const jobDescriptionInput = document.getElementById('jobDescription');
-            const coverLetterOutput = document.getElementById('coverLetterOutput');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const errorMessage = document.getElementById('errorMessage');
 
             // Handle mobile menu toggle
             menuBtn.addEventListener('click', () => {
@@ -315,115 +283,6 @@
                             }
                         }
                     }
-                }
-            });
-
-            // Gemini API call function with exponential backoff
-            async function callGeminiApiWithBackoff(prompt, maxRetries = 5, initialDelay = 1000) {
-                let retries = 0;
-                while (retries < maxRetries) {
-                    try {
-                        const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                        const payload = { contents: chatHistory };
-                        const apiKey = "";
-                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        const result = await response.json();
-
-                        if (result.candidates && result.candidates.length > 0 &&
-                            result.candidates[0].content && result.candidates[0].content.parts &&
-                            result.candidates[0].content.parts.length > 0) {
-                            return result.candidates[0].content.parts[0].text;
-                        } else {
-                            throw new Error("Unexpected API response structure.");
-                        }
-                    } catch (error) {
-                        retries++;
-                        if (retries < maxRetries) {
-                            const delay = initialDelay * Math.pow(2, retries - 1);
-                            await new Promise(res => setTimeout(res, delay));
-                        } else {
-                            throw new Error(`Falha ao gerar carta após ${maxRetries} tentativas: ${error.message}`);
-                        }
-                    }
-                }
-            }
-
-            // Resume data for LLM context
-            const denilsonResumeData = {
-                resumo: "Profissional da área elétrica com atuação desde 2014. Possuo sólida experiência em supervisão e gerenciamento de obras, com foco em energia solar, e instalações prediais. Especialista em liderança de equipes, planejamento, logística e resolução de problemas, garantindo a execução de projetos com segurança e alta qualidade.",
-                experiencias: [
-                    {
-                        cargo: "Supervisor de Obras",
-                        periodo: "04/2023 - 07/2024",
-                        descricao: "Coordenação de equipes em projetos, incluindo energia solar e instalações prediais, garantindo cronograma, qualidade e segurança."
-                    },
-                    {
-                        cargo: "Gerente de Obras",
-                        periodo: "10/2020 - 04/2023",
-                        descricao: "Gerenciamento de 10 equipes e 3 supervisores em projetos de instalações prediais, cuidando da logística e organização completa das obras."
-                    },
-                    {
-                        cargo: "Início da Carreira Elétrica",
-                        periodo: "2014",
-                        descricao: "Começo da jornada profissional na área elétrica, desenvolvendo a base técnica e prática em instalações."
-                    }
-                ],
-                habilidadesTecnicas: "Sistemas Fotovoltaicos, Instalações Prediais, Normas de Segurança, Leitura de Projetos, Manutenção de Equipamentos.",
-                habilidadesComportamentais: "Liderança, Gerenciamento de Equipes, Planejamento, Organização, Resolução de Problemas, Boa Comunicação."
-            };
-
-            // Event listener for generating cover letter
-            generateCoverLetterBtn.addEventListener('click', async () => {
-                const jobDescription = jobDescriptionInput.value.trim();
-
-                if (!jobDescription) {
-                    coverLetterOutput.innerHTML = '<p class="text-red-500">Por favor, insira a descrição da vaga para gerar a carta.</p>';
-                    return;
-                }
-
-                loadingIndicator.classList.remove('hidden');
-                coverLetterOutput.textContent = '';
-                errorMessage.classList.add('hidden');
-
-                const resumeContext = `
-                    **Resumo Profissional de Denilson:** ${denilsonResumeData.resumo}
-
-                    **Experiências Profissionais de Denilson:**
-                    - Supervisor de Obras (${denilsonResumeData.experiencias[0].periodo}): ${denilsonResumeData.experiencias[0].descricao}
-                    - Gerente de Obras (${denilsonResumeData.experiencias[1].periodo}): ${denilsonResumeData.experiencias[1].descricao}
-                    - Início da Carreira Elétrica (${denilsonResumeData.experiencias[2].periodo}): ${denilsonResumeData.experiencias[2].descricao}
-
-                    **Habilidades Técnicas de Denilson:** ${denilsonResumeData.habilidadesTecnicas}
-                    **Habilidades Comportamentais de Denilson:** ${denilsonResumeData.habilidadesComportamentais}
-                `;
-
-                const prompt = `Com base no seguinte currículo de Denilson Costa Silva e na descrição da vaga abaixo, escreva uma carta de apresentação convincente e personalizada. A carta deve destacar como as habilidades e experiências de Denilson se alinham com os requisitos da vaga, especialmente em energia solar, instalações prediais e gestão de obras. Mantenha um tom profissional e direto.
-
-                ${resumeContext}
-
-                **Descrição da Vaga:**
-                ${jobDescription}`;
-
-                try {
-                    const generatedLetter = await callGeminiApiWithBackoff(prompt);
-                    coverLetterOutput.textContent = generatedLetter;
-                } catch (error) {
-                    console.error("Erro na geração da carta:", error);
-                    errorMessage.classList.remove('hidden');
-                    coverLetterOutput.textContent = 'Não foi possível gerar a carta de apresentação. Por favor, tente novamente.';
-                } finally {
-                    loadingIndicator.classList.add('hidden');
                 }
             });
         });
